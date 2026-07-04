@@ -1,0 +1,20 @@
+{
+  "comma": {
+    "grade": "\u274c failed \u2014 61:77: execution error: Mail got an error: every window doesn\u2019t understand the \u201ccount\u201d message. (-1708)",
+    "opened": null,
+    "bccCount": null,
+    "subject": null,
+    "formatting": null,
+    "error": "61:77: execution error: Mail got an error: every window doesn\u2019t understand the \u201ccount\u201d message. (-1708)",
+    "reason": null
+  },
+  "semicolon": {
+    "grade": "\u274c failed \u2014 61:77: execution error: Mail got an error: every window doesn\u2019t understand the \u201ccount\u201d message. (-1708)",
+    "opened": null,
+    "bccCount": null,
+    "subject": null,
+    "formatting": null,
+    "error": "61:77: execution error: Mail got an error: every window doesn\u2019t understand the \u201ccount\u201d message. (-1708)",
+    "reason": null
+  }
+}

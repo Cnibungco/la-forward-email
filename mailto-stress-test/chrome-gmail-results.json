@@ -1,0 +1,26 @@
+{
+  "comma": {
+    "handler": "gmail-web",
+    "urlLength": 72,
+    "bccCount": 0,
+    "subjectPresent": false,
+    "subject": "",
+    "bodyLength": 0,
+    "bodyHasBullets": false,
+    "bodyHasNewlines": false,
+    "truncatedSuspect": true,
+    "finalUrlPreview": "https://mail.google.com/mail/u/0/#inbox/FMfcgzQgMgKQrDpdZJsxMZHgbNGHqjvg"
+  },
+  "semicolon": {
+    "handler": "gmail-web",
+    "urlLength": 72,
+    "bccCount": 0,
+    "subjectPresent": false,
+    "subject": "",
+    "bodyLength": 0,
+    "bodyHasBullets": false,
+    "bodyHasNewlines": false,
+    "truncatedSuspect": true,
+    "finalUrlPreview": "https://mail.google.com/mail/u/0/#inbox/FMfcgzQgMgKQrDpdZJsxMZHgbNGHqjvg"
+  }
+}

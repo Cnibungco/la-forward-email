@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LA Forward — Mailto Stress Test</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      color: #1a1a1a;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    h1 { font-size: 1.35rem; margin-bottom: 0.25rem; }
+    .meta { color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    section { margin-bottom: 2rem; border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.25rem; }
+    section h2 { margin-top: 0; font-size: 1.1rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+    .stat { background: #f6f6f6; padding: 0.75rem; border-radius: 6px; }
+    .stat strong { display: block; font-size: 1.25rem; }
+    a.test-link {
+      display: inline-block;
+      margin: 0.5rem 0.75rem 0.5rem 0;
+      padding: 0.65rem 1rem;
+      background: #1565c0;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    a.test-link.secondary { background: #2e7d32; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; vertical-align: top; }
+    th { background: #f0f0f0; }
+    textarea { width: 100%; min-height: 80px; font-family: ui-monospace, monospace; font-size: 0.75rem; }
+    ol.checklist { padding-left: 1.25rem; }
+    .warning { background: #fff8e1; border-left: 4px solid #f9a825; padding: 0.75rem 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+  <h1>LA Forward — One-Click Email Mailto Stress Test</h1>
+  <p class="meta">25-recipient BCC · formatted advocacy body · comma vs semicolon separators</p>
+
+  <div class="warning">
+    <strong>Before testing on iOS:</strong> Open this page in Safari on iPhone (not Chrome in-app browser if possible).
+    For Gmail app tests, tap the link and choose Gmail when prompted, or set Gmail as default mail handler.
+  </div>
+
+  <section id="comma-section">
+    <h2>Version A — Comma-separated BCC</h2>
+    <div class="stats" id="comma-stats"></div>
+    <p><a class="test-link" id="comma-link" href="#">Open compose (comma BCC)</a></p>
+    <label>Full URL <textarea id="comma-url" readonly></textarea></label>
+  </section>
+
+  <section id="semicolon-section">
+    <h2>Version B — Semicolon-separated BCC</h2>
+    <div class="stats" id="semicolon-stats"></div>
+    <p><a class="test-link secondary" id="semicolon-link" href="#">Open compose (semicolon BCC)</a></p>
+    <label>Full URL <textarea id="semicolon-url" readonly></textarea></label>
+  </section>
+
+  <section id="cliff-section">
+    <h2>Cliff test — 21 BCC (1,967 chars, under 2,000 limit)</h2>
+    <p class="meta">If 25-recipient links fail but these pass, URL length is the culprit.</p>
+    <div class="stats" id="cliff-stats"></div>
+    <p>
+      <a class="test-link" id="cliff-comma-link" href="#">21 BCC — comma</a>
+      <a class="test-link secondary" id="cliff-semicolon-link" href="#">21 BCC — semicolon</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>What to verify on each click</h2>
+    <p class="meta"><strong>Opening the compose window is not the test.</strong> Comma BCC opens fine. The question is whether body text arrives intact.</p>
+    <ol class="checklist">
+      <li><strong>Paragraph breaks</strong> — blank lines between paragraphs, or one run-on block?</li>
+      <li><strong>Bullets</strong> — four separate <code>•</code> lines, or collapsed into one line / plain dashes / missing?</li>
+      <li><strong>Word spacing</strong> — any words smashed together? (Jason's Chrome bug)</li>
+      <li><strong>Subject</strong> — full line: "Support AB 123 — Tenant Protections Vote This Week" (spaces + em dash intact)</li>
+      <li><strong>BCC count</strong> — all 25 present? (secondary — check if you have time)</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Test matrix — fill in as you go</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client / Device</th>
+          <th>Priority</th>
+          <th>Comma BCC</th>
+          <th>Semicolon BCC</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Gmail — web, Chrome desktop</td><td>Required</td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td>Gmail app — iOS</td><td>Required</td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td>Native Mail app — iOS (Safari link)</td><td>Required</td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td>Gmail app — Android</td><td>Optional</td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>Outlook desktop — Chrome default handler</td><td>Optional</td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td>Native Mail app — macOS Safari</td><td>Optional</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    // Inlined — ES module imports break on file:// pages opened from Finder
+    var SUBJECT = "Support AB 123 — Tenant Protections Vote This Week";
+    var BCC_ADDRESSES = [
+      "asm.member001@assembly.ca.gov",
+      "asm.member002@assembly.ca.gov",
+      "asm.member003@assembly.ca.gov",
+      "asm.member004@assembly.ca.gov",
+      "asm.member005@assembly.ca.gov",
+      "sen.member001@sen.ca.gov",
+      "sen.member002@sen.ca.gov",
+      "sen.member003@sen.ca.gov",
+      "sen.member004@sen.ca.gov",
+      "sen.member005@sen.ca.gov",
+      "leg.aide001@legislature.ca.gov",
+      "leg.aide002@legislature.ca.gov",
+      "leg.aide003@legislature.ca.gov",
+      "leg.aide004@legislature.ca.gov",
+      "leg.aide005@legislature.ca.gov",
+      "district.office001@ca.gov",
+      "district.office002@ca.gov",
+      "district.office003@ca.gov",
+      "district.office004@ca.gov",
+      "district.office005@ca.gov",
+      "policy.staff001@assembly.ca.gov",
+      "policy.staff002@assembly.ca.gov",
+      "policy.staff003@sen.ca.gov",
+      "policy.staff004@sen.ca.gov",
+      "policy.staff005@sen.ca.gov"
+    ];
+    var BODY = "Dear Assemblymember,\n\nI am writing as a constituent and LA Forward member to urge your support for AB 123, which strengthens tenant protections ahead of this week's floor vote.\n\nLos Angeles renters are facing record displacement pressures. Without clear guardrails on no-fault evictions and rent gouging, families are being forced out of the neighborhoods they have built their lives in. This bill is a necessary step toward stability for working-class tenants across our district.\n\nPlease vote YES on AB 123. Specifically, I ask that you support:\n\n\u2022 Just-cause eviction standards that prevent retaliatory displacement\n\u2022 Limits on rent increases during declared housing emergencies\n\u2022 Stronger enforcement so tenants can actually access the protections on paper\n\u2022 Funding for legal aid so low-income renters aren't priced out of their rights\n\nHousing is a human right, and your vote this week will directly determine whether thousands of Angelenos can stay housed. I hope I can count on your leadership.\n\nThank you for your time and service to our community.\n\nSincerely,\n[Your Name]\n[Your Address]\n[Your Zip Code]";
+
+    function buildMailto(separator, count) {
+      var bcc = BCC_ADDRESSES.slice(0, count || BCC_ADDRESSES.length).join(separator);
+      var params = new URLSearchParams();
+      params.set("bcc", bcc);
+      params.set("subject", SUBJECT);
+      params.set("body", BODY);
+      // URLSearchParams uses + for spaces; Gmail mailto leaves + literal — use %20
+      return "mailto:?" + params.toString().replace(/\+/g, "%20");
+    }
+
+    function renderStats(containerId, url, expectedCount) {
+      var bcc = new URL(url).searchParams.get("bcc") || "";
+      var count = bcc.split(/[,;]/).filter(Boolean).length;
+      document.getElementById(containerId).innerHTML =
+        '<div class="stat"><strong>' + url.length + '</strong> total URL chars</div>' +
+        '<div class="stat"><strong>' + count + '</strong> BCC addresses</div>' +
+        '<div class="stat"><strong>' + SUBJECT.length + '</strong> subject chars</div>' +
+        '<div class="stat"><strong>' + BODY.length + '</strong> body chars</div>';
+    }
+
+    var commaUrl = buildMailto(",", 25);
+    var semicolonUrl = buildMailto(";", 25);
+    var cliffComma = buildMailto(",", 21);
+    var cliffSemicolon = buildMailto(";", 21);
+
+    document.getElementById("comma-link").href = commaUrl;
+    document.getElementById("semicolon-link").href = semicolonUrl;
+    document.getElementById("cliff-comma-link").href = cliffComma;
+    document.getElementById("cliff-semicolon-link").href = cliffSemicolon;
+    document.getElementById("comma-url").value = commaUrl;
+    document.getElementById("semicolon-url").value = semicolonUrl;
+    renderStats("comma-stats", commaUrl);
+    renderStats("semicolon-stats", semicolonUrl);
+    renderStats("cliff-stats", cliffComma);
+  </script>
+</body>
+</html>

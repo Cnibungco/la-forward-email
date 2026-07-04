@@ -14,15 +14,15 @@
     </header>
 
     <section class="instructions">
-      <p>This opens your email app with a pre-written message. Review it, add your name and address, then send.</p>
+      <p id="instructions-text">This opens your email app with a pre-written message. Review it, add your name and address, then send.</p>
     </section>
 
-    <section class="action">
+    <section id="action-section" class="action">
       <a id="email-cta" class="cta" href="#">Email your representatives</a>
       <p id="recipient-note" class="recipient-note"></p>
     </section>
 
-    <section class="preview" aria-labelledby="preview-heading">
+    <section id="preview-section" class="preview" aria-labelledby="preview-heading">
       <h2 id="preview-heading">Message preview</h2>
       <p class="preview-label">Subject</p>
       <p id="preview-subject" class="preview-subject"></p>
@@ -33,44 +33,6 @@
 
   <script src="lib/buildMailtoUrl.js"></script>
   <script src="lib/campaignCodec.js"></script>
-  <script>
-    (function () {
-      var hash = window.location.hash.slice(1);
-      var titleEl = document.getElementById("campaign-title");
-      var instructionsEl = document.querySelector(".instructions p");
-
-      if (!hash) {
-        titleEl.textContent = "Campaign not found";
-        instructionsEl.textContent = "This link is missing campaign data. Ask LA Forward for a valid link.";
-        document.querySelector(".action").hidden = true;
-        document.querySelector(".preview").hidden = true;
-        return;
-      }
-
-      var campaign;
-      try {
-        campaign = decodeCampaign(hash);
-        buildMailtoUrl(campaign);
-      } catch (err) {
-        titleEl.textContent = "Invalid campaign link";
-        instructionsEl.textContent = err.message;
-        document.querySelector(".action").hidden = true;
-        document.querySelector(".preview").hidden = true;
-        return;
-      }
-
-      var mailtoUrl = buildMailtoUrl(campaign);
-      var count = campaign.recipients.length;
-
-      document.title = "LA Forward — " + campaign.title;
-      titleEl.textContent = campaign.title;
-      document.getElementById("email-cta").textContent = campaign.ctaLabel;
-      document.getElementById("email-cta").href = mailtoUrl;
-      document.getElementById("recipient-note").textContent =
-        "Opens your email app with " + count + " legislator" + (count === 1 ? "" : "s") + " in BCC.";
-      document.getElementById("preview-subject").textContent = campaign.subject;
-      document.getElementById("preview-body").textContent = campaign.body;
-    })();
-  </script>
+  <script src="js/email.js"></script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-07-02T15:53:57.652626Z",
+  "subject": "Support AB 123 \u2014 Tenant Protections Vote This Week",
+  "expectedBccCount": 25,
+  "versions": [
+    {
+      "label": "comma-separated BCC",
+      "totalLength": 2101,
+      "bccSeparator": ",",
+      "bccCountInUrl": 25,
+      "subjectLength": 50,
+      "bodyLength": 1112,
+      "url": "mailto:?bcc=asm.member001%40assembly.ca.gov%2Casm.member002%40assembly.ca.gov%2Casm.member003%40assembly.ca.gov%2Casm.member004%40assembly.ca.gov%2Casm.member005%40assembly.ca.gov%2Csen.member001%40sen.ca.gov%2Csen.member002%40sen.ca.gov%2Csen.member003%40sen.ca.gov%2Csen.member004%40sen.ca.gov%2Csen.member005%40sen.ca.gov%2Cleg.aide001%40legislature.ca.gov%2Cleg.aide002%40legislature.ca.gov%2Cleg.aide003%40legislature.ca.gov%2Cleg.aide004%40legislature.ca.gov%2Cleg.aide005%40legislature.ca.gov%2Cdistrict.office001%40ca.gov%2Cdistrict.office002%40ca.gov%2Cdistrict.office003%40ca.gov%2Cdistrict.office004%40ca.gov%2Cdistrict.office005%40ca.gov%2Cpolicy.staff001%40assembly.ca.gov%2Cpolicy.staff002%40assembly.ca.gov%2Cpolicy.staff003%40sen.ca.gov%2Cpolicy.staff004%40sen.ca.gov%2Cpolicy.staff005%40sen.ca.gov&subject=Support+AB+123+%E2%80%94+Tenant+Protections+Vote+This+Week&body=Dear+Assemblymember%2C%0A%0AI+am+writing+as+a+constituent+and+LA+Forward+member+to+urge+your+support+for+AB+123%2C+which+strengthens+tenant+protections+ahead+of+this+week%27s+floor+vote.%0A%0ALos+Angeles+renters+are+facing+record+displacement+pressures.+Without+clear+guardrails+on+no-fault+evictions+and+rent+gouging%2C+families+are+being+forced+out+of+the+neighborhoods+they+have+built+their+lives+in.+This+bill+is+a+necessary+step+toward+stability+for+working-class+tenants+across+our+district.%0A%0APlease+vote+YES+on+AB+123.+Specifically%2C+I+ask+that+you+support%3A%0A%0A%E2%80%A2+Just-cause+eviction+standards+that+prevent+retaliatory+displacement%0A%E2%80%A2+Limits+on+rent+increases+during+declared+housing+emergencies%0A%E2%80%A2+Stronger+enforcement+so+tenants+can+actually+access+the+protections+on+paper%0A%E2%80%A2+Funding+for+legal+aid+so+low-income+renters+aren%27t+priced+out+of+their+rights%0A%0AHousing+is+a+human+right%2C+and+your+vote+this+week+will+directly+determine+whether+thousands+of+Angelenos+can+stay+housed.+I+hope+I+can+count+on+your+leadership.%0A%0AThank+you+for+your+time+and+service+to+our+community.%0A%0ASincerely%2C%0A%5BYour+Name%5D%0A%5BYour+Address%5D%0A%5BYour+Zip+Code%5D"
+    },
+    {
+      "label": "semicolon-separated BCC",
+      "totalLength": 2101,
+      "bccSeparator": ";",
+      "bccCountInUrl": 25,
+      "subjectLength": 50,
+      "bodyLength": 1112,
+      "url": "mailto:?bcc=asm.member001%40assembly.ca.gov%3Basm.member002%40assembly.ca.gov%3Basm.member003%40assembly.ca.gov%3Basm.member004%40assembly.ca.gov%3Basm.member005%40assembly.ca.gov%3Bsen.member001%40sen.ca.gov%3Bsen.member002%40sen.ca.gov%3Bsen.member003%40sen.ca.gov%3Bsen.member004%40sen.ca.gov%3Bsen.member005%40sen.ca.gov%3Bleg.aide001%40legislature.ca.gov%3Bleg.aide002%40legislature.ca.gov%3Bleg.aide003%40legislature.ca.gov%3Bleg.aide004%40legislature.ca.gov%3Bleg.aide005%40legislature.ca.gov%3Bdistrict.office001%40ca.gov%3Bdistrict.office002%40ca.gov%3Bdistrict.office003%40ca.gov%3Bdistrict.office004%40ca.gov%3Bdistrict.office005%40ca.gov%3Bpolicy.staff001%40assembly.ca.gov%3Bpolicy.staff002%40assembly.ca.gov%3Bpolicy.staff003%40sen.ca.gov%3Bpolicy.staff004%40sen.ca.gov%3Bpolicy.staff005%40sen.ca.gov&subject=Support+AB+123+%E2%80%94+Tenant+Protections+Vote+This+Week&body=Dear+Assemblymember%2C%0A%0AI+am+writing+as+a+constituent+and+LA+Forward+member+to+urge+your+support+for+AB+123%2C+which+strengthens+tenant+protections+ahead+of+this+week%27s+floor+vote.%0A%0ALos+Angeles+renters+are+facing+record+displacement+pressures.+Without+clear+guardrails+on+no-fault+evictions+and+rent+gouging%2C+families+are+being+forced+out+of+the+neighborhoods+they+have+built+their+lives+in.+This+bill+is+a+necessary+step+toward+stability+for+working-class+tenants+across+our+district.%0A%0APlease+vote+YES+on+AB+123.+Specifically%2C+I+ask+that+you+support%3A%0A%0A%E2%80%A2+Just-cause+eviction+standards+that+prevent+retaliatory+displacement%0A%E2%80%A2+Limits+on+rent+increases+during+declared+housing+emergencies%0A%E2%80%A2+Stronger+enforcement+so+tenants+can+actually+access+the+protections+on+paper%0A%E2%80%A2+Funding+for+legal+aid+so+low-income+renters+aren%27t+priced+out+of+their+rights%0A%0AHousing+is+a+human+right%2C+and+your+vote+this+week+will+directly+determine+whether+thousands+of+Angelenos+can+stay+housed.+I+hope+I+can+count+on+your+leadership.%0A%0AThank+you+for+your+time+and+service+to+our+community.%0A%0ASincerely%2C%0A%5BYour+Name%5D%0A%5BYour+Address%5D%0A%5BYour+Zip+Code%5D"
+    }
+  ]
+}

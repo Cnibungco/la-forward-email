@@ -1,0 +1,22 @@
+{
+  "comma": {
+    "mailtoLength": 2101,
+    "gmailUrlLength": 2131,
+    "bccCount": 25,
+    "subject": "Support AB 123 \u2014 Tenant Protections Vote This Week",
+    "bodyLength": 1112,
+    "bodyHasDoubleNewlines": true,
+    "bodyHasBullets": true,
+    "bodyPreview": "Dear Assemblymember,\n\nI am writing as a constituent and LA Forward member to urge your support for AB 123, which strengthens tenant protections ahead of this week's floor vote.\n\nLos Angeles renters ar"
+  },
+  "semicolon": {
+    "mailtoLength": 2101,
+    "gmailUrlLength": 2131,
+    "bccCount": 25,
+    "subject": "Support AB 123 \u2014 Tenant Protections Vote This Week",
+    "bodyLength": 1112,
+    "bodyHasDoubleNewlines": true,
+    "bodyHasBullets": true,
+    "bodyPreview": "Dear Assemblymember,\n\nI am writing as a constituent and LA Forward member to urge your support for AB 123, which strengthens tenant protections ahead of this week's floor vote.\n\nLos Angeles renters ar"
+  }
+}
