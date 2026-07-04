@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LA Forward — Campaign Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="dashboard-page">
+  <main class="page page--wide">
+    <header class="header">
+      <p class="org">LA Forward</p>
+      <h1>Campaign dashboard</h1>
+      <p class="subtitle">Build a one-click email campaign and copy the share link for social media.</p>
+    </header>
+
+    <form id="campaign-form" class="form" novalidate>
+      <div class="field">
+        <label for="title">Campaign title</label>
+        <input type="text" id="title" name="title" placeholder="Support AB 123 — Tenant Protections" required />
+      </div>
+
+      <div class="field">
+        <label for="subject">Email subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Support AB 123 — Tenant Protections Vote This Week" required />
+      </div>
+
+      <div class="field">
+        <label for="body">Email body</label>
+        <textarea id="body" name="body" rows="14" placeholder="Dear Assemblymember,&#10;&#10;..." required></textarea>
+        <p class="hint">Use blank lines between paragraphs. Bullets (•) work. Include [Your Name] placeholders at the end.</p>
+      </div>
+
+      <div class="field">
+        <label for="recipients">BCC recipients <span class="label-meta">(max 21, one per line)</span></label>
+        <textarea id="recipients" name="recipients" rows="8" placeholder="legislator@assembly.ca.gov" required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="cta-label">Button label <span class="label-meta">(optional)</span></label>
+        <input type="text" id="cta-label" name="ctaLabel" placeholder="Email your representatives" />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary">Generate share link</button>
+        <button type="button" id="load-example" class="btn btn--secondary">Load example</button>
+        <button type="button" id="test-mailto" class="btn btn--secondary">Test in my email app</button>
+      </div>
+    </form>
+
+    <section id="output" class="output hidden" aria-live="polite">
+      <h2>Share this link</h2>
+      <p class="output-intro">Post this URL on social media, email, or your website. Members tap it to open a pre-filled email.</p>
+      <div class="copy-row">
+        <input type="text" id="share-url" class="share-url" readonly />
+        <button type="button" id="copy-link" class="btn btn--primary">Copy link</button>
+      </div>
+      <p id="copy-status" class="copy-status" aria-live="polite"></p>
+      <div class="output-actions">
+        <a id="preview-link" class="btn btn--secondary" href="#" target="_blank" rel="noopener">Preview member page</a>
+      </div>
+    </section>
+
+    <p id="form-error" class="form-error hidden" role="alert"></p>
+  </main>
+
+  <script src="lib/buildMailtoUrl.js"></script>
+  <script src="lib/campaignCodec.js"></script>
+  <script src="campaigns/ab123.js"></script>
+  <script>
+    (function () {
+      var STORAGE_KEY = "laforward-dashboard-draft";
+      var form = document.getElementById("campaign-form");
+      var output = document.getElementById("output");
+      var formError = document.getElementById("form-error");
+      var shareUrlInput = document.getElementById("share-url");
+      var copyStatus = document.getElementById("copy-status");
+
+      function fields() {
+        return {
+          title: document.getElementById("title").value.trim(),
+          subject: document.getElementById("subject").value.trim(),
+          body: document.getElementById("body").value,
+          recipients: parseRecipients(document.getElementById("recipients").value),
+          ctaLabel: document.getElementById("cta-label").value.trim() || "Email your representatives",
+        };
+      }
+
+      function showError(msg) {
+        formError.textContent = msg;
+        formError.classList.remove("hidden");
+        output.classList.add("hidden");
+      }
+
+      function clearError() {
+        formError.classList.add("hidden");
+        formError.textContent = "";
+      }
+
+      function saveDraft() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(fields()));
+        } catch (e) {}
+      }
+
+      function loadDraft() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          var d = JSON.parse(raw);
+          if (d.title) document.getElementById("title").value = d.title;
+          if (d.subject) document.getElementById("subject").value = d.subject;
+          if (d.body) document.getElementById("body").value = d.body;
+          if (d.recipients && d.recipients.length) {
+            document.getElementById("recipients").value = d.recipients.join("\n");
+          }
+          if (d.ctaLabel) document.getElementById("cta-label").value = d.ctaLabel;
+        } catch (e) {}
+      }
+
+      function applyCampaign(c) {
+        document.getElementById("title").value = c.title || "";
+        document.getElementById("subject").value = c.subject || "";
+        document.getElementById("body").value = c.body || "";
+        document.getElementById("recipients").value = (c.recipients || []).join("\n");
+        document.getElementById("cta-label").value = c.ctaLabel || "";
+        saveDraft();
+      }
+
+      function loadExample() {
+        if (window.EXAMPLE_CAMPAIGN) {
+          applyCampaign(window.EXAMPLE_CAMPAIGN);
+          return;
+        }
+        fetch("campaigns/ab123.json")
+          .then(function (r) {
+            return r.json();
+          })
+          .then(applyCampaign)
+          .catch(function () {
+            showError("Could not load example campaign.");
+          });
+      }
+
+      form.addEventListener("input", saveDraft);
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        clearError();
+        var campaign = fields();
+
+        try {
+          buildMailtoUrl(campaign);
+        } catch (err) {
+          showError(err.message);
+          return;
+        }
+
+        var encoded = encodeCampaign(campaign);
+        var url = buildShareUrl(encoded);
+        shareUrlInput.value = url;
+        document.getElementById("preview-link").href = url;
+        output.classList.remove("hidden");
+        copyStatus.textContent = "";
+        output.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+
+      document.getElementById("copy-link").addEventListener("click", function () {
+        shareUrlInput.select();
+        shareUrlInput.setSelectionRange(0, shareUrlInput.value.length);
+        navigator.clipboard.writeText(shareUrlInput.value).then(
+          function () {
+            copyStatus.textContent = "Copied!";
+          },
+          function () {
+            copyStatus.textContent = "Select the link and copy manually (Cmd+C).";
+          }
+        );
+      });
+
+      document.getElementById("load-example").addEventListener("click", loadExample);
+
+      document.getElementById("test-mailto").addEventListener("click", function () {
+        clearError();
+        try {
+          window.location.href = buildMailtoUrl(fields());
+        } catch (err) {
+          showError(err.message);
+        }
+      });
+
+      loadDraft();
+    })();
+  </script>
+</body>
+</html>
